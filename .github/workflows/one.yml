@@ -2,19 +2,42 @@ name: oneaction
 
 
 on:
-#  push:
-#    branches:
-#      - main
-  schedule:
-  - cron: '* * * * *'
+  push:
+    branches-ignore:
+      - main
 
+  pull_request:
+    branches:
+      - dev
+
+env:
+    var1: "value1"
 
 jobs:
- build:
-   runs-on: ubuntu-latest
-
-
-   steps:
-     - uses: actions/checkout@v2
-     - name: Run a one-liner script
-       run: echo Hello, world!
+  job1:
+    name: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: step1
+        run: echo "step1"
+  job2:
+    name: job2
+    needs: job1
+    runs-on: ubuntu-latest
+    steps:
+      - name: step1
+        run: echo "step1"
+  job3:
+    name: job3
+    needs: job2
+    runs-on: ubuntu-latest
+    steps:
+      - name: step1
+        run: echo "step1"
+  job4:
+    name: job4
+    needs: job3
+    runs-on: ubuntu-latest
+    steps:
+      - name: step1
+        run: echo "step1"
